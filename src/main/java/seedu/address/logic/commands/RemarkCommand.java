@@ -35,6 +35,11 @@ public class RemarkCommand extends Command {
     private final Index index;
     private final Remark remark;
 
+    /**
+     * Constructor for RemarkCommand
+     * @param index index indicating Contact to be updated
+     * @param remark remark field to be added to Contact
+     */
     public RemarkCommand(Index index, Remark remark) {
         requireAllNonNull(index, remark);
 
