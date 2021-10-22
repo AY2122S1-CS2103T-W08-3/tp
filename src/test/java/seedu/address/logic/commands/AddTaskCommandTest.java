@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.ModelStub;
 import seedu.address.model.Date;
+import seedu.address.model.tag.TaskTag;
 import seedu.address.model.task.Label;
 import seedu.address.model.task.Task;
 
@@ -24,7 +25,8 @@ class AddTaskCommandTest {
     @Test
     public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingTaskAdded modelStub = new ModelStubAcceptingTaskAdded();
-        Task validTask = new Task(new Label("test label"), new Date("test date"));
+        Task validTask = new Task(new Label("test label"),
+                new Date("test date"), new TaskTag("SO100"));
 
         CommandResult commandResult = new AddTaskCommand(validTask).execute(modelStub);
 

@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.model.Date;
+import seedu.address.model.tag.TaskTag;
 import seedu.address.model.task.Label;
 import seedu.address.model.task.Task;
 
@@ -11,11 +12,13 @@ public class TaskBuilder {
 
     public static final String DEFAULT_LABEL = "Get new cloth";
     public static final String DEFAULT_DATE = "20th September 2021";
+    public static final String DEFAULT_TASKTAG = "SO007";
     public static final boolean DEFAULT_IS_DONE = false;
 
 
     private Label label;
     private Date date;
+    private TaskTag taskTag;
     private boolean isDone;
 
     /**
@@ -24,6 +27,7 @@ public class TaskBuilder {
     public TaskBuilder() {
         label = new Label(DEFAULT_LABEL);
         date = new Date(DEFAULT_DATE);
+        taskTag = new TaskTag(DEFAULT_TASKTAG);
         isDone = DEFAULT_IS_DONE;
 
     }
@@ -34,6 +38,7 @@ public class TaskBuilder {
     public TaskBuilder(Task taskToCopy) {
         label = taskToCopy.getLabel();
         date = taskToCopy.getDate();
+        taskTag = taskToCopy.getTaskTag();
         isDone = taskToCopy.getIsDone();
     }
 
@@ -54,6 +59,14 @@ public class TaskBuilder {
     }
 
     /**
+     * Sets the {@code taskTag} of the {@code Task} that we are building.
+     */
+    public TaskBuilder withTaskTag(String taskTag) {
+        this.taskTag = new TaskTag(taskTag);
+        return this;
+    }
+
+    /**
      * Sets the {@code isDone} of the {@code Task} that we are building.
      */
     public TaskBuilder withIsDone(boolean isDone) {
@@ -65,7 +78,7 @@ public class TaskBuilder {
      * builds the Task.
      */
     public Task build() {
-        Task task = new Task(label, date);
+        Task task = new Task(label, date, taskTag);
         task.setIsDone(isDone);
         return task;
     }

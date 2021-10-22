@@ -3,16 +3,17 @@ package seedu.address.model.order;
 import seedu.address.model.Date;
 
 public class Order {
+    private static final String idPrefix = "SO";
     private static int count = 1;
 
-    private Customer customer;
+    private final Customer customer;
     private long id;
     private Amount amount;
     private Date date;
     private boolean isComplete;
 
     /**
-     * Constructor creates a Order related to the customer, due on the given date, with the given amount.
+     * Constructor creates an Order related to the customer, due on the given date, with the given amount.
      * isComplete flag is set to False initially, and the id is automatically assigned.
      */
     public Order(Customer customer, Date date, Amount amount) {
@@ -61,7 +62,16 @@ public class Order {
         this.id = id;
     }
 
-    //Order string representation is temporary, change as necessary for UI.
+    /**
+     * Returns the prefixed order id as a String.
+     *
+     * @return Prefixed order id
+     */
+    public String getDisplayId() {
+        return idPrefix + this.id;
+    }
+
+    // Order string representation is temporary, change as necessary for UI.
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -70,7 +80,7 @@ public class Order {
         } else {
             builder.append("[ ] ");
         }
-        builder.append("ID: SO")
+        builder.append("ID: " + idPrefix)
                 .append(getId())
                 .append("; Customer: ")
                 .append(getCustomer())
@@ -82,7 +92,7 @@ public class Order {
         return builder.toString();
     }
 
-    //required for OrderList to check if a Order exists, before marking it.
+    // Required for OrderList to check if an Order exists, before marking it.
     @Override
     public boolean equals(Object other) {
         if (other == this) {

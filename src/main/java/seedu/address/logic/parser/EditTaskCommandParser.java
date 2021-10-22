@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTaskCommand;
@@ -23,7 +24,7 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
     public EditTaskCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LABEL, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_LABEL, PREFIX_DATE, PREFIX_TASK_TAG);
 
         Index index;
 
@@ -39,6 +40,9 @@ public class EditTaskCommandParser implements Parser<EditTaskCommand> {
         }
         if (argMultimap.getValue(PREFIX_DATE).isPresent()) {
             editTaskDescriptor.setDate(ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TASK_TAG).isPresent()) {
+            editTaskDescriptor.setTaskTag(ParserUtil.parseTaskTag(argMultimap.getValue(PREFIX_TASK_TAG).get()));
         }
 
         if (!editTaskDescriptor.isAnyFieldEdited()) {

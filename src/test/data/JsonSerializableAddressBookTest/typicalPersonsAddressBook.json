@@ -63,5 +63,22 @@
     "address" : "4th street",
     "remark" : "",
     "tagged" : [ ]
+
+  } ],
+  "tasks" : [ {
+    "label" : "Buy red button",
+    "date" : "18th of September 2021",
+    "taskTag": "SO2103",
+    "isDone" : "false"
+  }, {
+    "label" : "Buy green buttons",
+    "date" : "20th of September 2021",
+    "taskTag": "SO2101",
+    "isDone" : "false"
+  }, {
+    "label" : "Buy blue buttons",
+    "date" : "23th of September 2021",
+    "taskTag": "SO3230",
+    "isDone" : "true"
   } ]
 }

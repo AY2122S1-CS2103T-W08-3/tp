@@ -11,14 +11,14 @@ import seedu.address.model.Model;
 import seedu.address.model.task.Task;
 
 /**
- * Marks a task as complete, with the task identified using its displayed index from the address book.
+ * Marks a task as done, with the task identified using its displayed index from the application
  */
-public class MarkDoneCommand extends Command {
+public class MarkTaskCommand extends Command {
 
-    public static final String COMMAND_WORD = "markdone";
+    public static final String COMMAND_WORD = "marktask";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Marks a task identified by the index number used in the displayed task list as complete.\n"
+            + ": Marks a task identified by the index number used in the displayed task list as done.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -26,7 +26,7 @@ public class MarkDoneCommand extends Command {
 
     private final Index targetIndex;
 
-    public MarkDoneCommand(Index targetIndex) {
+    public MarkTaskCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -40,14 +40,14 @@ public class MarkDoneCommand extends Command {
         }
 
         Task taskToMark = lastShownList.get(targetIndex.getZeroBased());
-        model.markDone(taskToMark);
+        model.markTask(taskToMark);
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark));
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof MarkDoneCommand // instanceof handles nulls
-                && targetIndex.equals(((MarkDoneCommand) other).targetIndex)); // state check
+                || (other instanceof MarkTaskCommand // instanceof handles nulls
+                && targetIndex.equals(((MarkTaskCommand) other).targetIndex)); // state check
     }
 }

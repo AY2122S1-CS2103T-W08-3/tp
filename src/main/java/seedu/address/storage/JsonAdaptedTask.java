@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Date;
+import seedu.address.model.tag.TaskTag;
 import seedu.address.model.task.Label;
 import seedu.address.model.task.Task;
 
@@ -18,6 +19,7 @@ class JsonAdaptedTask {
 
     private final String label;
     private final String date;
+    private final String taskTag;
     private final String isDone;
 
     /**
@@ -25,9 +27,10 @@ class JsonAdaptedTask {
      */
     @JsonCreator
     public JsonAdaptedTask(@JsonProperty("label") String label, @JsonProperty("date") String date,
-                             @JsonProperty("isDone") String isDone) {
+                             @JsonProperty("taskTag") String taskTag, @JsonProperty("isDone") String isDone) {
         this.label = label;
         this.date = date;
+        this.taskTag = taskTag;
         this.isDone = isDone;
     }
 
@@ -37,6 +40,7 @@ class JsonAdaptedTask {
     public JsonAdaptedTask(Task source) {
         label = source.getLabel().toString();
         date = source.getDate().toString();
+        taskTag = source.getTaskTag().toString();
         isDone = String.valueOf(source.getIsDone());
     }
 
@@ -59,11 +63,19 @@ class JsonAdaptedTask {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
         if (!Date.isValidDate(label)) {
-            throw new IllegalValueException(Label.MESSAGE_CONSTRAINTS);
+            throw new IllegalValueException(Date.MESSAGE_CONSTRAINTS);
         }
-        Date modelDate = new Date(date);
+        final Date modelDate = new Date(date);
 
-        Task newTask = new Task(modelLabel, modelDate);
+        if (taskTag == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TaskTag.class.getSimpleName()));
+        }
+        if (!TaskTag.isValidTagName(taskTag)) {
+            throw new IllegalValueException(TaskTag.MESSAGE_CONSTRAINTS);
+        }
+        final TaskTag modelTaskTag = new TaskTag(taskTag);
+
+        Task newTask = new Task(modelLabel, modelDate, modelTaskTag);
 
         if (isDone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Isdone"));

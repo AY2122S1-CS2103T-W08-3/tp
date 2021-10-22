@@ -19,22 +19,30 @@
       <padding>
         <Insets bottom="5" left="15" right="5" top="5" />
       </padding>
-      <HBox alignment="CENTER_LEFT">
-          <Label fx:id="salesid" styleClass="cell_big_label">
-              <minWidth>
-                  <Region fx:constant="USE_PREF_SIZE" />
-              </minWidth>
-          </Label>
-          <Label fx:id="id" styleClass="cell_big_label" />
-          <Label fx:id="label" styleClass="cell_big_label" text="\$label" />
-      </HBox>
-      <HBox spacing="5.0" />
-      <HBox alignment="CENTER_LEFT" spacing="10.0">
-          <children>
-              <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
-              <CheckBox fx:id="isDone" disable="true" mnemonicParsing="false" selected="true"/>
-          </children>
-      </HBox>
+         <HBox>
+            <children>
+            <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+                <Label fx:id="index" styleClass="cell_big_label">
+                    <minWidth>
+                        <!-- Ensures that the label text is never truncated -->
+                        <Region fx:constant="USE_PREF_SIZE" />
+                    </minWidth>
+                </Label>
+                <Label fx:id="orderId" styleClass="cell_big_label" text="\$SOXXX" />
+                  <Label fx:id="customer" styleClass="cell_big_label" text="\$Customer" />
+            </HBox>
+              <CheckBox fx:id="isComplete" disable="true" mnemonicParsing="false" selected="true" HBox.hgrow="NEVER" />
+            </children>
+         </HBox>
+      <HBox spacing="5.0">
+            <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0" HBox.hgrow="ALWAYS">
+                <children>
+                    <Label fx:id="date" styleClass="cell_small_label" text="\$date" />
+                </children>
+            </HBox>
+               <Label fx:id="amount" text="\$$$" />
+            </children></HBox>
     </VBox>
     <rowConstraints>
        <RowConstraints />

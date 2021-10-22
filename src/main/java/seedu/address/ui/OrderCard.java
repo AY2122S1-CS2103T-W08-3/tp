@@ -16,13 +16,17 @@ public class OrderCard extends UiPart<Region> {
     public final Order order;
 
     @FXML
-    private Label id;
+    private Label index;
     @FXML
-    private Label label;
+    private Label orderId;
+    @FXML
+    private Label customer;
+    @FXML
+    private CheckBox isComplete;
     @FXML
     private Label date;
     @FXML
-    private CheckBox isDone;
+    private Label amount;
 
     /**
      * Creates a {@code OrderCard} with the given {@code Order} and index to display.
@@ -30,8 +34,12 @@ public class OrderCard extends UiPart<Region> {
     public OrderCard(Order order, int displayedIndex) {
         super(FXML);
         this.order = order;
-        id.setText(displayedIndex + ". ");
-        date.setText("Deadline:  " + order.getDate().parsedDate);
+        index.setText(displayedIndex + ". ");
+        orderId.setText("(" + order.getDisplayId() + ") ");
+        customer.setText(order.getCustomer().toString());
+        isComplete.setSelected(order.getIsComplete());
+        date.setText("Deadline:  " + order.getDate().toString());
+        amount.setText("$" + order.getAmount().toString());
     }
 
     @Override
@@ -48,7 +56,7 @@ public class OrderCard extends UiPart<Region> {
 
         // state check
         OrderCard card = (OrderCard) other;
-        return id.getText().equals(card.id.getText())
+        return index.getText().equals(card.index.getText())
                 && order.equals(card.order);
     }
 }

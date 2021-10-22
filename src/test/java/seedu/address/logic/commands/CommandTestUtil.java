@@ -14,6 +14,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
@@ -55,6 +56,8 @@ public class CommandTestUtil {
     public static final String VALID_LABEL_SEW = "Sew buttons onto blazer";
     public static final String VALID_DATE_SEPT = "19th September 2021";
     public static final String VALID_DATE_OCT = "12th October 2021";
+    public static final String VALID_TASKTAG_ORDER = "SO1000";
+    public static final String VALID_TASKTAG_SEW = "SO1";
 
     public static final String VALID_CUSTOMER_SALE1 = "Muthu";
     public static final String VALID_CUSTOMER_SALE2 = "Danish";
@@ -82,6 +85,8 @@ public class CommandTestUtil {
     public static final String LABEL_DESC_SEW = " " + PREFIX_LABEL + VALID_LABEL_SEW;
     public static final String DATE_DESC_SEPT = " " + PREFIX_DATE + VALID_DATE_SEPT;
     public static final String DATE_DESC_OCT = " " + PREFIX_DATE + VALID_DATE_OCT;
+    public static final String TASKTAG_DESC_ORDER = " " + PREFIX_TASK_TAG + VALID_TASKTAG_ORDER;
+    public static final String TASKTAG_DESC_SEW = " " + PREFIX_TASK_TAG + VALID_TASKTAG_SEW;
 
     public static final String CUSTOMER_DESC_SALE1 = " " + PREFIX_CUSTOMER + VALID_CUSTOMER_SALE1;
     public static final String CUSTOMER_DESC_SALE2 = " " + PREFIX_CUSTOMER + VALID_CUSTOMER_SALE2;
@@ -99,6 +104,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_LABEL_DESC = " " + PREFIX_LABEL; // empty string not allowed for labels
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE; // empty string not allowed for date
+    public static final String INVALID_TASKTAG_DESC = " " + PREFIX_TASK_TAG + "SOSO"; // wrong prefix and missing id
 
     public static final String INVALID_CUSTOMER_DESC = " " + PREFIX_CUSTOMER; // empty string not allowed for customers
     public static final String INVALID_AMOUNT_DESC = " " + PREFIX_AMOUNT + "20."; // no digit after dot
@@ -124,8 +130,10 @@ public class CommandTestUtil {
                 .withRemark(VALID_REMARK_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
 
-        DESC_ORDER = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_ORDER).withDate(VALID_DATE_SEPT).build();
-        DESC_SEW = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_SEW).withDate(VALID_DATE_OCT).build();
+        DESC_ORDER = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_ORDER).withDate(VALID_DATE_SEPT)
+                .withTaskTag(VALID_TASKTAG_ORDER).build();
+        DESC_SEW = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_SEW).withDate(VALID_DATE_OCT)
+                .withTaskTag(VALID_TASKTAG_SEW).build();
     }
 
     /**

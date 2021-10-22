@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_TASKS;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Date;
 import seedu.address.model.Model;
+import seedu.address.model.tag.TaskTag;
 import seedu.address.model.task.Label;
 import seedu.address.model.task.Task;
 
@@ -29,10 +31,12 @@ public class EditTaskCommand extends Command {
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_LABEL + "LABEL] "
-            + "[" + PREFIX_DATE + "DATE]...\n"
+            + "[" + PREFIX_DATE + "DATE] "
+            + "[" + PREFIX_TASK_TAG + "TASKTAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_LABEL + "Order cloth "
-            + PREFIX_DATE + "19th September 2021";
+            + PREFIX_DATE + "19th September 2021"
+            + PREFIX_TASK_TAG + "SO2100";
 
     public static final String MESSAGE_EDIT_TASK_SUCCESS = "Edited Task: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
@@ -88,8 +92,9 @@ public class EditTaskCommand extends Command {
 
         Label updatedLabel = editTaskDescriptor.getLabel().orElse(taskToEdit.getLabel());
         Date updatedDate = editTaskDescriptor.getDate().orElse(taskToEdit.getDate());
+        TaskTag updatedTaskTag = editTaskDescriptor.getTaskTag().orElse(taskToEdit.getTaskTag());
 
-        return new Task(updatedLabel, updatedDate);
+        return new Task(updatedLabel, updatedDate, updatedTaskTag);
     }
 
     @Override
@@ -115,8 +120,9 @@ public class EditTaskCommand extends Command {
      * corresponding field value of the task.
      */
     public static class EditTaskDescriptor {
-        private Date date;
         private Label label;
+        private Date date;
+        private TaskTag taskTag;
 
         public EditTaskDescriptor() {}
 
@@ -126,13 +132,22 @@ public class EditTaskCommand extends Command {
         public EditTaskDescriptor(EditTaskDescriptor toCopy) {
             setDate(toCopy.date);
             setLabel(toCopy.label);
+            setTaskTag(toCopy.taskTag);
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(date, label);
+            return CollectionUtil.isAnyNonNull(date, label, taskTag);
+        }
+
+        public void setLabel(Label label) {
+            this.label = label;
+        }
+
+        public Optional<Label> getLabel() {
+            return Optional.ofNullable(label);
         }
 
         public void setDate(Date date) {
@@ -143,12 +158,12 @@ public class EditTaskCommand extends Command {
             return Optional.ofNullable(date);
         }
 
-        public void setLabel(Label label) {
-            this.label = label;
+        public void setTaskTag(TaskTag taskTag) {
+            this.taskTag = taskTag;
         }
 
-        public Optional<Label> getLabel() {
-            return Optional.ofNullable(label);
+        public Optional<TaskTag> getTaskTag() {
+            return Optional.ofNullable(taskTag);
         }
 
         @Override
@@ -167,7 +182,8 @@ public class EditTaskCommand extends Command {
             EditTaskDescriptor e = (EditTaskDescriptor) other;
 
             return getLabel().equals(e.getLabel())
-                    && getDate().equals(e.getDate());
+                    && getDate().equals(e.getDate())
+                    && getTaskTag().equals(e.getTaskTag());
         }
     }
 }

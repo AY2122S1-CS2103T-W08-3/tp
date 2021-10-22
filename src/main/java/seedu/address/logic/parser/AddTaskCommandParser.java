@@ -3,12 +3,14 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_LABEL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TASK_TAG;
 
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Date;
+import seedu.address.model.tag.TaskTag;
 import seedu.address.model.task.Label;
 import seedu.address.model.task.Task;
 
@@ -21,7 +23,7 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
      */
     public AddTaskCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_LABEL, PREFIX_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_LABEL, PREFIX_DATE, PREFIX_TASK_TAG);
 
         //checks that preamble has only spaces, and none of the prefix values are empty
         //important for the argmultimap.getvalue().get() calls below
@@ -30,10 +32,10 @@ public class AddTaskCommandParser implements Parser<AddTaskCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTaskCommand.MESSAGE_USAGE));
         }
 
-        //very basic validation; only prevents empty strings right now
         Label label = ParserUtil.parseLabel(argMultimap.getValue(PREFIX_LABEL).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
-        Task task = new Task(label, date);
+        TaskTag taskTag = ParserUtil.parseTaskTag(argMultimap.getValue(PREFIX_TASK_TAG).orElse("General"));
+        Task task = new Task(label, date, taskTag);
 
         return new AddTaskCommand(task);
     }

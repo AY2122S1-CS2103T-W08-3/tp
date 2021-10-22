@@ -20,6 +20,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Remark;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TaskTag;
 import seedu.address.model.task.Label;
 
 /**
@@ -211,6 +212,21 @@ public class ParserUtil {
             throw new ParseException(Date.MESSAGE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String taskTag} into an {@code TaskTag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code taskTag} is invalid.
+     */
+    public static TaskTag parseTaskTag(String taskTag) throws ParseException {
+        requireNonNull(taskTag);
+        String trimmedTaskTag = taskTag.trim();
+        if (!TaskTag.isValidTagName(trimmedTaskTag)) {
+            throw new ParseException(TaskTag.MESSAGE_CONSTRAINTS);
+        }
+        return new TaskTag(trimmedTaskTag);
     }
 
     /**

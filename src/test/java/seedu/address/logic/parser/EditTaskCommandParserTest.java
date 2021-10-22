@@ -7,13 +7,16 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_LABEL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.LABEL_DESC_ORDER;
 import static seedu.address.logic.commands.CommandTestUtil.LABEL_DESC_SEW;
+import static seedu.address.logic.commands.CommandTestUtil.TASKTAG_DESC_ORDER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_OCT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_SEPT;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_ORDER;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_LABEL_SEW;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASKTAG_ORDER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_TASK;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_TASK;
@@ -68,7 +71,7 @@ public class EditTaskCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_LABEL_DESC, Label.MESSAGE_CONSTRAINTS); // invalid label
         assertParseFailure(parser, "1" + INVALID_DATE_DESC, Date.MESSAGE_CONSTRAINTS); // invalid date
 
-        // invalid label followed by valid date
+        // invalid label
         assertParseFailure(parser, "1" + INVALID_LABEL_DESC + DATE_DESC_OCT, Label.MESSAGE_CONSTRAINTS);
 
         // valid label followed by invalid label. The test case for invalid label followed by valid label
@@ -80,10 +83,22 @@ public class EditTaskCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_TASK;
-        String userInput = targetIndex.getOneBased() + DATE_DESC_SEPT + LABEL_DESC_ORDER;
+        String userInput = targetIndex.getOneBased() + TASKTAG_DESC_ORDER + LABEL_DESC_SEW + DATE_DESC_SEPT;
 
-        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_ORDER)
-                .withDate(VALID_DATE_SEPT).build();
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_SEW)
+                .withDate(VALID_DATE_SEPT).withTaskTag(VALID_TASKTAG_ORDER).build();
+        EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_someFieldsSpecified_success() {
+        Index targetIndex = INDEX_FIRST_PERSON;
+        String userInput = targetIndex.getOneBased() + TASKTAG_DESC_ORDER + LABEL_DESC_SEW;
+
+        EditTaskDescriptor descriptor = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_SEW)
+                .withTaskTag(VALID_TASKTAG_ORDER).build();
         EditTaskCommand expectedCommand = new EditTaskCommand(targetIndex, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -104,9 +119,9 @@ public class EditTaskCommandParserTest {
         expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // label
-        userInput = targetIndex.getOneBased() + LABEL_DESC_ORDER;
-        descriptor = new EditTaskDescriptorBuilder().withLabel(VALID_LABEL_ORDER).build();
+        // taskTag
+        userInput = targetIndex.getOneBased() + TASKTAG_DESC_ORDER;
+        descriptor = new EditTaskDescriptorBuilder().withTaskTag(VALID_TASKTAG_ORDER).build();
         expectedCommand = new EditTaskCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
