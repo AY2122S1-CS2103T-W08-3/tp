@@ -3,13 +3,20 @@
 skinparam arrowThickness 1.1
 skinparam arrowColor MODEL_COLOR
 skinparam classBackgroundColor MODEL_COLOR
+skinparam arrowFontSize 10
 
 Package Model <<Rectangle>>{
 Interface ReadOnlyAddressBook <<Interface>>
 Interface ReadOnlyUserPrefs <<Interface>>
+Interface ReadOnlyTaskBook <<Interface>>
+Interface ReadOnlySalesOrderBook <<Interface>>
 Interface Model <<Interface>>
 Class AddressBook
+Class TaskBook
+Class SalesOrderBook
 Class ReadOnlyAddressBook
+Class ReadOnlyTaskBook
+Class ReadOnlySalesOrderBook
 Class Model
 Class ModelManager
 Class UserPrefs
@@ -21,21 +28,42 @@ Class Person
 Class Address
 Class Email
 Class Name
+Class Gender
+Class Measurement
+Class Remark
 Class Phone
 Class Tag
-
+Class TaskList
+Class Task
+Class Label
+Class Boolean
+Class Integer
+Class Date
+Class TaskTag
+Class OrderList
+Class Order
+Class Amount
+Class Customer
 }
 
 Class HiddenOutside #FFFFFF
 HiddenOutside ..> Model
 
 AddressBook .up.|> ReadOnlyAddressBook
+TaskBook .up.|> ReadOnlyTaskBook
+SalesOrderBook .up.|> ReadOnlySalesOrderBook
 
 ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .left.> ReadOnlyAddressBook
+Model .left.> ReadOnlyTaskBook
+Model .right.> ReadOnlySalesOrderBook
+
+
 ModelManager -left-> "1" AddressBook
 ModelManager -right-> "1" UserPrefs
+ModelManager -left-> "1" TaskBook
+ModelManager -right-> "1" SalesOrderBook
 UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
@@ -44,11 +72,39 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Measurement
+Person *--> Gender
+Person *--> "0..1"Remark
 Person *--> "*" Tag
 
 Name -[hidden]right-> Phone
 Phone -[hidden]right-> Address
 Address -[hidden]right-> Email
 
+TaskBook *--> "1" TaskList
+TaskList --> "~* all" Task
+Task *--> Label
+Task *--> TaskTag
+Task --> Date
+Task --> "isDone" Boolean
+
+SalesOrderBook *--> "1" OrderList
+OrderList --> "~* all" Order
+Order *--> Amount
+Order *--> Customer
+Order --> Date
+Order --> "isComplete" Boolean
+Order --> "Id" Integer
+
+Customer -[hidden]right-> Amount
+Amount -[hidden]right-> Date
+Date -[hidden]right-> Boolean
+
 ModelManager -->"~* filtered" Person
+ModelManager -->"~* filtered" Task
+ModelManager -->"~* filtered" Order
+
+Person -[hidden]up-> Order
+Task -[hidden]right-> Order
+
 @enduml
