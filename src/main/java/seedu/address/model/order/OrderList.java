@@ -89,14 +89,14 @@ public class OrderList implements Iterable<Order> {
      * Marks an order as complete, if it exists in the OrderList
      * @param toMark
      */
-    public void markComplete(Order toMark) {
+    public void markComplete(Order toMark, int index) {
         requireNonNull(toMark);
-        if (!hasOrder(toMark)) {
+        Order target = internalList.get(index);
+        if (!target.equals(toMark)) {
             throw new OrderNotFoundException();
         }
-        int index = internalList.indexOf(toMark);
-        toMark.setIsComplete(true);
-        internalList.set(index, toMark);
+        target.setIsComplete(true);
+        internalList.set(index, target);
     }
 
     public ObservableList<Order> asUnmodifiableObservableList() {

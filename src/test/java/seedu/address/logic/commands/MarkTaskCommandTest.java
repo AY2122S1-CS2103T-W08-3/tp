@@ -57,7 +57,7 @@ class MarkTaskCommandTest {
         private final ObservableList<Task> listWithOneTask = FXCollections.observableArrayList(testTask);
 
         @Override
-        public void markTask(Task task) {
+        public void markTask(Task task, int index) {
             listWithOneTask.get(0).setIsDone(true);
         }
 

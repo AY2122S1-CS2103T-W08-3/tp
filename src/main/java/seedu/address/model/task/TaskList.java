@@ -78,14 +78,14 @@ public class TaskList implements Iterable<Task> {
     /**
      * Marks a task as done.
      */
-    public void markDone(Task toMark) {
+    public void markDone(Task toMark, int index) {
         requireNonNull(toMark);
-        if (!hasTask(toMark)) {
+        Task target = internalList.get(index);
+        if (!target.equals(toMark)) {
             throw new TaskNotFoundException();
         }
-        int index = internalList.indexOf(toMark);
-        toMark.setIsDone(true);
-        internalList.set(index, toMark);
+        target.setIsDone(true);
+        internalList.set(index, target);
     }
 
     public void setTasks(List<Task> tasks) {

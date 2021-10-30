@@ -55,7 +55,7 @@ class OrderListTest {
     @Test
     public void markComplete_existingOrder_marksOrder() {
         orderList.add(testorder);
-        orderList.markComplete(testorder);
+        orderList.markComplete(testorder, 0);
         assertTrue(testorder.getIsComplete());
     }
 }

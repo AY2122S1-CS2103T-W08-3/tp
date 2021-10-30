@@ -199,8 +199,8 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public void markTask(Task toMark) {
-        taskBook.markDone(toMark);
+    public void markTask(Task toMark, int index) {
+        taskBook.markDone(toMark, index);
 
     }
 
@@ -287,8 +287,8 @@ public class ModelManager implements Model {
     /**
      * Marks an order as completed
      */
-    public void markOrder(Order order) {
-        orderBook.markOrder(order);
+    public void markOrder(Order order, int index) {
+        orderBook.markOrder(order, index);
     }
 
     /**

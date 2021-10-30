@@ -40,7 +40,7 @@ public class MarkTaskCommand extends Command {
         }
 
         Task taskToMark = lastShownList.get(targetIndex.getZeroBased());
-        model.markTask(taskToMark);
+        model.markTask(taskToMark, targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark),
                 CommandResult.DisplayState.TASK);
     }

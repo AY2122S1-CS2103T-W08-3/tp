@@ -141,7 +141,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void markTask(Task task) {
+    public void markTask(Task task, int index) {
         throw new AssertionError("This method should not be called.");
     }
 
@@ -166,7 +166,7 @@ public class ModelStub implements Model {
     }
 
     @Override
-    public void markOrder(Order order) {
+    public void markOrder(Order order, int index) {
         throw new AssertionError("This method should not be called.");
     }
 

@@ -47,7 +47,7 @@ class MarkOrderCommandTest {
         private final ObservableList<Order> listWithOneOrder = FXCollections.observableArrayList(testOrder);
 
         @Override
-        public void markOrder(Order order) {
+        public void markOrder(Order order, int index) {
             listWithOneOrder.get(0).setIsComplete(true);
         }
 

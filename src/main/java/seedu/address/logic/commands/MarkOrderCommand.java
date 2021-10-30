@@ -40,7 +40,7 @@ public class MarkOrderCommand extends Command {
         }
 
         Order orderToMark = lastShownList.get(targetIndex.getZeroBased());
-        model.markOrder(orderToMark);
+        model.markOrder(orderToMark, targetIndex.getZeroBased());
         return new CommandResult(String.format(MESSAGE_MARK_ORDER_SUCCESS, orderToMark),
                 CommandResult.DisplayState.ORDER);
     }

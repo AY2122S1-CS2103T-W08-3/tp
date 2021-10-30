@@ -68,8 +68,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.removeIf(pred);
     }
 
-    public void markDone(Task task) {
-        tasks.markDone(task);
+    public void markDone(Task task, int index) {
+        tasks.markDone(task, index);
     }
 
     public void setTask(Task target, Task editedTask) {
