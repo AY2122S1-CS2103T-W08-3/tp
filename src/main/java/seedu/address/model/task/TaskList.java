@@ -40,11 +40,12 @@ public class TaskList implements Iterable<Task> {
     /**
      * Removes a task from the list.
      */
-    public void remove(Task toRemove) {
+    public void remove(Task toRemove, int index) {
         requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
+        if (!(internalList.get(index).equals(toRemove))) {
             throw new TaskNotFoundException();
         }
+        internalList.remove(index);
     }
 
     /**

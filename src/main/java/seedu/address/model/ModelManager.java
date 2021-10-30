@@ -170,8 +170,8 @@ public class ModelManager implements Model {
      * Deletes a task from taskBook.
      */
     @Override
-    public void deleteTask(Task toDelete) {
-        taskBook.deleteTask(toDelete);
+    public void deleteTask(Task toDelete, int index) {
+        taskBook.deleteTask(toDelete, index);
     }
 
     /**

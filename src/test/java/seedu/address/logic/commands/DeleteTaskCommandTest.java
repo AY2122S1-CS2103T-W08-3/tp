@@ -53,7 +53,7 @@ class DeleteTaskCommandTest {
         private final ObservableList<Task> listWithOneTask = FXCollections.observableArrayList(testTask);
 
         @Override
-        public void deleteTask(Task task) {
+        public void deleteTask(Task task, int index) {
             requireNonNull(task);
             listWithOneTask.remove(task);
         }

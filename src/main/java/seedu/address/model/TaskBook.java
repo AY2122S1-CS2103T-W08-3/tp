@@ -60,8 +60,8 @@ public class TaskBook implements ReadOnlyTaskBook {
         tasks.add(toAdd);
     }
 
-    public void deleteTask(Task toDelete) {
-        tasks.remove(toDelete);
+    public void deleteTask(Task toDelete, int index) {
+        tasks.remove(toDelete, index);
     }
 
     public void deleteTaskIf(Predicate<Task> pred) {

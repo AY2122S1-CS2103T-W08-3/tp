@@ -136,7 +136,7 @@ public interface Model {
     /**
      * Deletes a task from taskBook.
      */
-    void deleteTask(Task toDelete);
+    void deleteTask(Task toDelete, int index);
 
     /**
      * Deletes all tasks matching predicate from taskBook.
