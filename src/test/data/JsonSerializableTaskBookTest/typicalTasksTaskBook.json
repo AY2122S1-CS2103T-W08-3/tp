@@ -1,21 +1,21 @@
 {
   "tasks" : [ {
-    "label" : "Buy red button",
+    "label" : "Sew red buttons",
     "date" : "2021-09-18",
-    "taskTag" : "General",
+    "taskTag" : "SO1",
     "isDone" : "false"
   }, {
     "label" : "Buy green buttons",
     "date" : "2021-09-19",
-    "taskTag" : "General",
+    "taskTag" : "SO2",
     "isDone" : "false"
   }, {
-    "label" : "Buy orange buttons",
+    "label" : "Make orange buttons",
     "date" : "2021-09-23",
-    "taskTag" : "General",
+    "taskTag" : "SO3",
     "isDone" : "true"
   }, {
-    "label" : "Buy blue buttons",
+    "label" : "Adjust blue buttons",
     "date" : "2021-09-20",
     "taskTag" : "General",
     "isDone" : "false"
